@@ -13,6 +13,7 @@ from typing import Any, Text, Dict, List
 #
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
+from rasa_sdk.events import SlotSets
 #
 #
 class ActionHelloWorld(Action):
@@ -54,3 +55,22 @@ def escribirArchivo(dire, dicc):
         with open(dire, "w") as archivo:
             json.dump(dicc, archivo)
             archivo.close()
+
+
+class ActionPedirTiempo(Action):
+#
+     def name(self) -> Text:
+         return "action_pedir_tiempo"
+
+     def run(self, dispatcher: CollectingDispatcher,
+             tracker: Tracker,
+             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        empleado= next(tracker.get_latest_entity_values("empleado"), None)
+        message= "si"
+        #ACA AGREGAR EL FUTURO ARCHIVO DE EMPLEADOS
+        if str (empleado)== "Facundo":
+            message=message+ "puede pedir un tiempo extra"
+
+        dispatcher.utter_message(text=str(message))
+        
+        return [SlotSets("name", str(empleado))]

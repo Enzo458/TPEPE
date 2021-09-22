@@ -9,12 +9,22 @@ intents:
   - mood_unhappy
   - bot_challenge
   - info_empleado
+  - saludos
+  - pedir_tiempo_por_tarea
+  - despedida
+  - nombre_empleado
 
 entites: 
   - idEmpleado
+  - empleado
+
+slots: 
+  name:
+    type: text  
 
 actions:
   - action_info_empleado
+  - action_pedir_tiempo
 
 responses:
   utter_greet:
@@ -35,6 +45,15 @@ responses:
 
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."
+
+  utter_saludos:
+  - text: "Buenos dias"
+
+  utter_despedida:
+  - text: "Hasta luego"
+
+  utter_nombre:
+  - text: "como es tu nombre?"
 
 session_config:
   session_expiration_time: 60
