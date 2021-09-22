@@ -98,3 +98,29 @@ nlu:
     - me das info sobre [001](idEmpleado)
     - nesecito informacion de [001](idEmpleado)
     - sobre [001](idEmpleado) que data tenes
+
+- intent: saludos
+  examples:
+    - Hola
+    - Buenos dias
+    - Buenas tardes
+    - Todo bien?
+
+- intent: pedir_tiempo_por_tarea
+  examples:
+    - Necesito mas tiempo para terminar la tarea
+    - Podria solicitar mas tiempo?
+    - Necesito mas tiempo
+
+- intent: despedida
+  examples:
+    - Nos vemos
+    - Chau
+    - Adios
+    - Buenas noches
+
+- intent: nombre_empleado
+  examples:
+    - Mi nombre es [Facundo](empleado)
+    - Mi nombre es [Enzo](empleado)
+    - Soy [Facundo](empleado)

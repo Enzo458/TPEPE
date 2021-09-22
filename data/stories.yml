@@ -33,4 +33,14 @@ stories:
   steps:
   - intent: info_empleado
   - action: action_info_empleado
+
+- story: Inicio_conversacion
+  steps:
+  - intent: saludos
+  - action: utter_saludos
+  - intent: pedir_tiempo_por_tarea
+  - action: utter_nombre
+  - intent: nombre_empleado
+  - action: action_pedir_tiempo
+    
   
