@@ -9,5 +9,6 @@
 	"tiempo" : "null",  
 	"email" : "nil",
 	"turno" : "tarde", 
-	"tareas_momento" : [null]
+	"tareas_momento" : [null],
+	"faltas": ["05/04/2019"]
 }

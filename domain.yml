@@ -9,12 +9,17 @@ intents:
   - mood_unhappy
   - bot_challenge
   - info_empleado
+  - notificar_aucencia
 
 entites: 
   - idEmpleado
 
 actions:
   - action_info_empleado
+
+slots:
+  identificadorEmpleado:
+    type: text
 
 responses:
   utter_greet:
