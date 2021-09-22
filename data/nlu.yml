@@ -90,3 +90,11 @@ nlu:
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
+
+- intent: info_empleado
+  examples: |
+    - quiero informacion sobre el empleado [001](idEmpleado)
+    - info de [001](idEmpleado)
+    - me das info sobre [001](idEmpleado)
+    - nesecito informacion de [001](idEmpleado)
+    - sobre [001](idEmpleado) que data tenes

@@ -1,0 +1,13 @@
+{
+	"idEmpleado" : "001",
+	"nombre" : "Pepe", 
+	"apellido" : "Argento",  
+	"area" : "null", 
+	"lenguajes" : "null", 
+	"SO": "linux",
+	"calidad" : "media", 
+	"tiempo" : "null",  
+	"email" : "nil",
+	"turno" : "tarde", 
+	"tareas_momento" : [null]
+}
