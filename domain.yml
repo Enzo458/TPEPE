@@ -14,6 +14,7 @@ intents:
   - despedida
   - nombre_empleado
   - notificar_aucencia
+  - pedir_tarea
 
 entites: 
   - idEmpleado
@@ -22,14 +23,18 @@ entites:
 slots: 
   name:
     type: text  
+  identificadorEmpleado:
+    type: text
+  idTarea:
+    type: text
 
 actions:
   - action_info_empleado
   - action_pedir_tiempo
+  - action_registar_notificacion_falta
+  - action_proponer_tarea
+  - action_confirmar_tarea
 
-slots:
-  identificadorEmpleado:
-    type: text
 
 responses:
   utter_greet:
@@ -60,6 +65,23 @@ responses:
   utter_nombre:
   - text: "como es tu nombre?"
 
+  utter_faltas_registrada:
+  - text: "Perfecto {name}, su falta ya fue notificada y ya acumula {nroFaltas} faltas"
+
+  utter_faltas_aviso_exceso:
+  - text: "El numero de faltas que llevas acumulado: {nroFaltas}, esta cerca de lo permitido por la empresa recordad que el exceso de faltas puede traer concecuencias"
+
+  utter_faltas_sansion:
+  - text: "El numero de faltas: {nroFaltas}, excede lo permitido por la empresa porfavor asiste a RRHH y se te comunicara tu sancion"
+
+  utter_proponer_tarea:
+  - text: "{name}, te puedo ofrecer la siguiente tarea {desTarea}"
+
+  utter_tareas_error:
+  - text: "{nombre}, no es posible asignarle una tarea porque: {motivo}"
+
+  utter_tareas_cofirma_asignacion:
+  - text: "Perfecto {nombre}, la terea {nombreTarea} se te fue asignada y la fecha de entrega estimada es  {fechaEstimada} "
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true

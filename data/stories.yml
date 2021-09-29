@@ -43,4 +43,15 @@ stories:
   - intent: nombre_empleado
   - action: action_pedir_tiempo
     
-  
+- story: notificar_falta
+  steps:
+  - intent: notificar_aucencia
+  - entities:
+  - action: action_registar_notificacion_falta
+
+- story: asignar_tarea
+  steps:
+  - intent: pedir_tarea
+  - action: action_proponer_tarea
+  - intent: affirm 
+  - action: action_confirmar_tarea

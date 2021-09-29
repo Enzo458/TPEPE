@@ -1,6 +1,9 @@
 version: "2.0"
 
 nlu:
+
+
+
 - intent: greet
   examples: |
     - hey
@@ -34,21 +37,21 @@ nlu:
 - intent: affirm
   examples: |
     - yes
-    - y
-    - indeed
-    - of course
-    - that sounds good
-    - correct
+    - acepto
+    - si 
+    - perfecto 
+    - joya
+    - me parece bien 
 
 - intent: deny
   examples: |
     - no
     - n
-    - never
-    - I don't think so
-    - don't like that
-    - no way
-    - not really
+    - no gracias
+    - lo siento no
+    - na
+    - nop
+    - not
 
 - intent: mood_great
   examples: |
@@ -100,27 +103,43 @@ nlu:
     - sobre [001](idEmpleado) que data tenes
 
 - intent: saludos
-  examples:
+  examples: |
     - Hola
     - Buenos dias
     - Buenas tardes
     - Todo bien?
 
 - intent: pedir_tiempo_por_tarea
-  examples:
+  examples: |
     - Necesito mas tiempo para terminar la tarea
     - Podria solicitar mas tiempo?
     - Necesito mas tiempo
 
 - intent: despedida
-  examples:
+  examples: |
     - Nos vemos
     - Chau
     - Adios
     - Buenas noches
 
 - intent: nombre_empleado
-  examples:
+  examples: |
     - Mi nombre es [Facundo](empleado)
     - Mi nombre es [Enzo](empleado)
     - Soy [Facundo](empleado)
+
+- intent: notificar_aucencia
+  examples: |
+    - no puedo ir hoy
+    - hoy voy a faltar
+    - queria notificar que hoy no puedo asistir
+    - hoy me voy a ausentar
+    - aviso que hoy me ausento 
+
+- intent: pedir_tarea
+  examples: |
+    - quiero un tarea nueva 
+    - me asignas una nueva tarea 
+    - hay alguna tarea disponible 
+    - nueva tarea 
+    - una nueva tarea, por favor     
