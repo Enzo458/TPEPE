@@ -80,22 +80,28 @@ class registrarNotificacionDeAusencia(Action):
 
 
 class ActionPedirTiempo(Action):
-#
      def name(self) -> Text:
          return "action_pedir_tiempo"
 
      def run(self, dispatcher: CollectingDispatcher,
              tracker: Tracker,
              domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        empleado= next(tracker.get_latest_entity_values("empleado"), None)
-        message= "si"
-        #ACA AGREGAR EL FUTURO ARCHIVO DE EMPLEADOS
-        if str (empleado)== "Facundo":
-            message=message+ "puede pedir un tiempo extra"
-
-        dispatcher.utter_message(text=str(message))
         
-        return [SlotSet("name", str(empleado))]
+        idEmpleado= tracker.get_slot("identificadorEmpleado")
+        mensaje= "empleado no identificado"
+        if(idEmpleado is not None):
+            direccion= str(os.getcwd()) +"\\recursos\\empleados\\" + lista_empleados+ ".json"
+            empleado= manejoArchivo.leerArchivo(direccion)
+            tareas_momen = len(str(empleado["tareas_momento"]))
+            if (tareas_momen > 2):
+                dispatcher.utter_message(
+                        template= "utter_tarea_pedida_negativa"
+                )
+            else
+                 dispatcher.utter_message(
+                     template= "utter_tarea_pedida_positiva"
+                 )
+        return [SlotSet("identificadorEmpleado", str(empleado["idEmpleado"]))]
 
 
 class ActionPedirTarea(Action):
