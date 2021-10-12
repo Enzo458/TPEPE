@@ -146,7 +146,6 @@ class ActionConfirmarTarea(Action):
         
         idEmpleado= tracker.get_slot("identificadorEmpleado")
         idTareaProp= tracker.get_slot("idTarea")
-        mensaje= "empleado no identificado"
         direccionE= str(os.getcwd()) +"\\recursos\\empleados\\" + idEmpleado+ ".json"
         empleado= manejoArchivo.leerArchivo(direccionE)
         date= datetime.datetime.now()
@@ -158,5 +157,11 @@ class ActionConfirmarTarea(Action):
         fechaestimada=date + datetime.timedeta(days=tareaProp["fecha_estimada"])
         tareaProp["fecha_estimada"]=str(fechaestimada.day)+"/"+str(fechaestimada.month)+"/"+str(fechaestimada.year)
         manejoArchivo.guardarTarea(direcionT,idTareaProp,tareaProp)
+        dispatcher.utter_message(
+                        template= "utter_tareas_confirma_asignacion",
+                        nombre= empleado["nombre"],
+                        nombreTarea= tareaProp["nombre"],
+                        fechaEstimada= tareaProp["fecha_estimada"]
+                        )
         return[]
         

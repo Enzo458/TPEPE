@@ -1,5 +1,5 @@
- ; nombre ; descripcion ; fecha_inicio ; fecha_fin ; calidad ; responsable  ; lenguaje ; prioridad ; fecha_estimada
-001 ; crear tabla ; crear un tabla de clientes en una base de datos ; none ; none ; none ; MySQL ; alta ; 1   
-002 ; crear UI ; crear una interfaz para dispositivo android ; none ; none ; none ; Kotlin ; alta ; 3 
-003 ; crear Servidor ; crear una api para manejar las peticiones al seridor ; none ; none ; none ; nodeJS ; alta ; 4 
-004 ; crear UI de Iphone ; crear una interfaz para dispositivo Iphone ; none ; none ; none ; switf ; alta ; 3 
+idTarea,nombre,descripcion,fecha_inicio,fecha_fin,calidad,responsable,lenguaje,prioridad,fecha_estimada
+1,crear tabla,crear un tabla de clientes en una base de datos,none,none,none,,MySQL,alta,1
+2,crear UI,crear una interfaz para dispositivo android,none,none,none,,Kotlin,alta,3
+3,crear Servidor,crear una api para manejar las peticiones al seridor,none,none,none,,nodeJS,alta,4
+4,crear UI de Iphone,crear una interfaz para dispositivo Iphone,none,none,none,,switf,alta,3

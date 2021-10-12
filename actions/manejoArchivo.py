@@ -1,6 +1,7 @@
 import json
 import os
 import csv
+import re
 import pandas as pd
 def leerArchivo(dire)-> dict:
         print(dire)
@@ -22,27 +23,20 @@ def escribirArchivo(dire, dicc)-> bool:
             return False
 
 def tareaSinRes(dire)-> dict:
-        try:
-            with open (dire) as archivo:
-                dict= csv.DictReader(archivo)
-                tareaDis= None
-                for row in dict:
-                    if(row["responsable"] is None):
-                        tareaDis= row
-            return tareaDis
-        except FileNotFoundError:
-            return None
+        tareas = pd.read_csv(dire,index_col= 0)
+        print(tareas)
+        for tarea in tareas.to_dict('index'):
+            print(tarea)
+            dic = tarea
+        return dic
+        
 
 def tareaBuscar(dire, id)-> dict:
-        try:
-            with open (dire) as archivo:
-                dict= csv.DictReader(archivo)
-                tareaDis= None
-                for row in dict:
-                    if(row["idTarea"] == id):
-                        tareaDis= row
-            return tareaDis
-        except FileNotFoundError:
+        tareas = pd.read_csv(dire)
+        try: 
+            dic = tareas.loc[tareas["idTarea"] == id]
+            return dic
+        except KeyError:
             return None
 
 def guardarTarea(dire, id, dicc):
