@@ -82,6 +82,13 @@ responses:
 
   utter_tareas_cofirma_asignacion:
   - text: "Perfecto {nombre}, la terea {nombreTarea} se te fue asignada y la fecha de entrega estimada es  {fechaEstimada} "
-session_config:
+
+  utter_tarea_pedida_negativa:
+  - text: "No puede pedir tiempo para una tarea, ya que tiene tareas pendientes"
+
+  utter_tarea_pedida_positiva:
+  - text: "Tiene un dia mas para terminar la tarea"
+      
+  session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
