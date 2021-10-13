@@ -23,26 +23,33 @@ def escribirArchivo(dire, dicc)-> bool:
             return False
 
 def tareaSinRes(dire)-> dict:
-        tareas = pd.read_csv(dire,index_col= 0)
-        print(tareas)
-        for tarea in tareas.to_dict('index'):
-            print(tarea)
-            dic = tarea
-        return dic
+
+    with open(dire) as csvfile:
+        tareas = csv.DictReader(csvfile)
+        for row in tareas:
+            if(row['responsable']==""):
+                dict = row
+
+    return dict
+        
         
 
 def tareaBuscar(dire, id)-> dict:
-        tareas = pd.read_csv(dire)
-        try: 
-            dic = tareas.loc[tareas["idTarea"] == id]
-            return dic
-        except KeyError:
-            return None
+        
+    with open(dire) as csvfile:
+        tareas = csv.DictReader(csvfile)
+        for row in tareas:
+            if(row['idTarea']==id):
+                dict = row
+    return dict
 
 def guardarTarea(dire, id, dicc):
-        tareas = pd.read_csv(dire)
-        try: 
-            tareas.loc[tareas["idTarea"] == id] = dicc
-            tareas.to_csv(dire)
-        except KeyError:
-            return None            
+    df = pd.read_csv(dire, index_col=0,header=0)
+    try:
+        print(df.loc[df['idTarea']== id])
+        df.loc[df['idTarea']== id, "resposable"] = dicc["responsable"]
+        df.loc[df['idTarea']== id, "fecha_estimada"] = dicc["fecha_estimada"]
+        df.to_csv(dire)
+    except KeyError:
+        print("ouch")
+        pass

@@ -97,7 +97,7 @@ class ActionPedirTiempo(Action):
                 dispatcher.utter_message(
                         template= "utter_tarea_pedida_negativa"
                 )
-            else
+            else:
                  dispatcher.utter_message(
                      template= "utter_tarea_pedida_positiva"
                  )
@@ -135,7 +135,7 @@ class ActionPedirTarea(Action):
                     else:
                         dispatcher.utter_message(
                             template= "utter_proponer_tarea",
-                            nombre= empleado["nombre"],
+                            name= empleado["nombre"],
                             desTarea= tareaProp["descripcion"]
                         )
                         return[SlotSet("idTarea", str(tareaProp["idTarea"]))]
@@ -157,14 +157,15 @@ class ActionConfirmarTarea(Action):
         date= datetime.datetime.now()
         direcionT= os.getcwd() +"\\recursos\\tareas\\tareas" + ".csv"
         tareaProp= manejoArchivo.tareaBuscar(direcionT,idTareaProp)
-        empleado["tareas_momento"].append(tareaProp["idTarea"])        
-        tareaProp["responsable"]=empleado["idEmpleado"]
-        tareaProp["fecha_inicio"]=str(date.day)+"/"+str(date.month)+"/"+str(date.year)
-        fechaestimada=date + datetime.timedeta(days=tareaProp["fecha_estimada"])
-        tareaProp["fecha_estimada"]=str(fechaestimada.day)+"/"+str(fechaestimada.month)+"/"+str(fechaestimada.year)
+        empleado['tareas_momento'].append(tareaProp["idTarea"])        
+        tareaProp['responsable']=empleado["idEmpleado"]
+        tareaProp['fecha_inicio']=str(date.day)+"/"+str(date.month)+"/"+str(date.year)
+        fechaestimada= date + datetime.timedelta(days=int(tareaProp['fecha_estimada']))
+        tareaProp['fecha_estimada']=str(fechaestimada.day)+"/"+str(fechaestimada.month)+"/"+str(fechaestimada.year)
         manejoArchivo.guardarTarea(direcionT,idTareaProp,tareaProp)
+        manejoArchivo.escribirArchivo(direccionE,empleado)
         dispatcher.utter_message(
-                        template= "utter_tareas_confirma_asignacion",
+                        template= "utter_tareas_cofirmar_asignacion",
                         nombre= empleado["nombre"],
                         nombreTarea= tareaProp["nombre"],
                         fechaEstimada= tareaProp["fecha_estimada"]

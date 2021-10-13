@@ -16,13 +16,13 @@ intents:
   - notificar_aucencia
   - pedir_tarea
 
-entites: 
+entites:
   - idEmpleado
   - empleado
 
-slots: 
+slots:
   name:
-    type: text  
+    type: text
   identificadorEmpleado:
     type: text
   idTarea:
@@ -80,7 +80,7 @@ responses:
   utter_tareas_error:
   - text: "{nombre}, no es posible asignarle una tarea porque: {motivo}"
 
-  utter_tareas_cofirma_asignacion:
+  utter_tareas_cofirmar_asignacion:
   - text: "Perfecto {nombre}, la terea {nombreTarea} se te fue asignada y la fecha de entrega estimada es  {fechaEstimada} "
 
   utter_tarea_pedida_negativa:
@@ -88,7 +88,7 @@ responses:
 
   utter_tarea_pedida_positiva:
   - text: "Tiene un dia mas para terminar la tarea"
-      
-  session_config:
+
+session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
