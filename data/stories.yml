@@ -55,3 +55,8 @@ stories:
   - action: action_proponer_tarea
   - intent: affirm 
   - action: action_confirmar_tarea
+
+- story: queja
+  steps:
+  - intent: queja_de_com
+  - action: action_tramitar_queja

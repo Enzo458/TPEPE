@@ -15,6 +15,7 @@ intents:
   - nombre_empleado
   - notificar_aucencia
   - pedir_tarea
+  - queja_de_com
 
 entites:
   - idEmpleado
@@ -34,6 +35,7 @@ actions:
   - action_registar_notificacion_falta
   - action_proponer_tarea
   - action_confirmar_tarea
+  - action_tramitar_queja
 
 
 responses:
@@ -89,6 +91,12 @@ responses:
   utter_tarea_pedida_positiva:
   - text: "Tiene un dia mas para terminar la tarea"
 
+  utter_queja_notificada:
+  - text: "se registro la queja de {empleado} efectuado por {empleadoqsQueja}"
+
+  utter_queja_error:
+  - text: "error al notificar queja: {error}"
+    
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true

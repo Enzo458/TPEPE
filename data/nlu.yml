@@ -143,3 +143,12 @@ nlu:
     - hay alguna tarea disponible 
     - nueva tarea 
     - una nueva tarea, por favor     
+
+- intent: queja_de_com
+  examples: |
+    - Tengo problemas con [001](idEmpleado)
+    - quiero notificar una queja sobre [001](idEmpleado)
+    - no me llevo bien con [001](idEmpleado)
+    - discuti con[001](idEmpleado)
+    - tuve una pelea con [001](idEmpleado)
+    - no quiero trabaja mas con [001](idEmpleado)

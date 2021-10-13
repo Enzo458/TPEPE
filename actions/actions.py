@@ -11,7 +11,7 @@ import datetime
 import os
 import re
 import actions.manejoArchivo as manejoArchivo
-from os import name
+from os import error, name
 from typing import Any, Text, Dict, List
 #
 from rasa_sdk import Action, Tracker
@@ -176,5 +176,42 @@ class ActionConfirmarTarea(Action):
                         nombre = empleado["nombre"],
                         motivo = "no se pudeo guardar de forma correcta, por favor intente mas tarde o comuniquese coon el soporte tecnico"
             )
+        return[]
+        
+class ActionTramitarQuej(Action):
+    def name(self) -> Text:
+        return "action_tramitar_queja"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+             tracker: Tracker,
+             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        idEmpleado= tracker.get_slot("identificadorEmpleado")
+        idTareaProp= tracker.get_slot("idTarea")
+        direccionE= str(os.getcwd()) +"\\recursos\\empleados\\lista_empleados.json"
+        empleado= manejoArchivo.leerArchivo(direccionE, idEmpleado)
+        direccionEqueja= str(os.getcwd()) +"\\recursos\\empleados\\lista_empleados.json"
+        idEmpleadoQ=next(tracker.get_latest_entity_values("idEmpleado"), None)
+        dicc= manejoArchivo.leerArchivo(direccionEqueja, idEmpleadoQ)
+        if(dicc["idEmpleado"]==empleado["idEmpleado"]):
+            dispatcher.utter_message(
+                template= "utter_queja_error",
+                error= "no puedes quejarte de ti mismo"
+            )
+        else: 
+            if empleado["idEmpleado"] in dicc["problemascon"] :
+                dispatcher.utter_message(
+                    template= "utter_queja_error",
+                    error= "ya estaba notificado"
+                )
+            else:
+                dispatcher.utter_message(
+                    template= "utter_queja_notificada",
+                    empleado= dicc["idEmpleado"],
+                    empleadoqsQueja= empleado["idEmpleado"]
+                )
+                manejoArchivo.escribirArchivo(direccionEqueja,dicc,idEmpleadoQ)
+
+        
         return[]
         
