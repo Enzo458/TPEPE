@@ -3,20 +3,25 @@ import os
 import csv
 import re
 import pandas as pd
-def leerArchivo(dire)-> dict:
+def leerArchivo(dire,id)-> dict:
         print(dire)
         try:
             with open (dire, "r") as archivo:
                 dict= json.load(archivo)
+                dict= dict["lista_empleado"][id]
                 archivo.close()
             return dict
         except FileNotFoundError:
             return None
 
-def escribirArchivo(dire, dicc)-> bool: 
+def escribirArchivo(dire, dicc, id)-> bool: 
         try:
+            with open(dire,"r")as arch:
+                dict=json.load(arch)
+                arch.close()
             with open(dire, "w") as archivo:
-                json.dump(dicc, archivo)
+                dict["lista_empleado"][id]=dicc
+                json.dump(dict, archivo)
                 archivo.close()
                 return True
         except FileNotFoundError:
@@ -43,13 +48,12 @@ def tareaBuscar(dire, id)-> dict:
                 dict = row
     return dict
 
-def guardarTarea(dire, id, dicc):
-    df = pd.read_csv(dire, index_col=0,header=0)
+def guardarTarea(dire, id, dicc)-> bool:
+    df= pd.read_csv(dire,index_col=0)
     try:
-        print(df.loc[df['idTarea']== id])
-        df.loc[df['idTarea']== id, "resposable"] = dicc["responsable"]
-        df.loc[df['idTarea']== id, "fecha_estimada"] = dicc["fecha_estimada"]
+        df.loc[int(id),:]=dicc
         df.to_csv(dire)
+        return True
     except KeyError:
-        print("ouch")
-        pass
+        print("key error")
+        return False

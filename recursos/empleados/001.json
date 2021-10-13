@@ -1,1 +1,1 @@
-{"idEmpleado": "001", "nombre": "Pepe", "apellido": "A", "area": "null", "lenguajes": "null", "SO": "linux", "calidad": "media", "tiempo": "null", "email": "nil", "turno": "tarde", "tareas_momento": ["4", "4"], "faltas": ["11/10/2021", "12/10/2021"]}
+{"idEmpleado": "001", "nombre": "Pepe", "apellido": "A", "area": "null", "lenguajes": "null", "SO": "linux", "calidad": "media", "tiempo": "null", "email": "nil", "turno": "tarde", "tareas_momento": ["3", "2"], "faltas": ["11/10/2021", "12/10/2021"]}

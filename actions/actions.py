@@ -29,8 +29,8 @@ class ActionInfoEmpledo(Action):
      def run(self, dispatcher: CollectingDispatcher,
              tracker: Tracker,
              domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-            direccionArch= os.getcwd() +"\\recursos\\empleados\\" + next(tracker.get_latest_entity_values("idEmpleado"), None) + ".json"
-            dicc= manejoArchivo.leerArchivo(direccionArch)
+            direccionE= str(os.getcwd()) +"\\recursos\\empleados\\lista_empleados.json"
+            dicc= manejoArchivo.leerArchivo(direccionE, next(tracker.get_latest_entity_values("idEmpleado"), None))
             if(dicc is None):
                 dispatcher.utter_message("idEmpleado incorrecto")
                 return [SlotSet("identificadorEmpleado", None)]
@@ -52,8 +52,8 @@ class registrarNotificacionDeAusencia(Action):
             idEmpleado= tracker.get_slot("identificadorEmpleado")
             mensaje= "empleado no identificado"
             if(idEmpleado is not None):
-                direccion= str(os.getcwd()) +"\\recursos\\empleados\\" + idEmpleado+ ".json"
-                empleado= manejoArchivo.leerArchivo(direccion)
+                direccionE= str(os.getcwd()) +"\\recursos\\empleados\\lista_empleados.json"
+                empleado= manejoArchivo.leerArchivo(direccionE, idEmpleado)
                 date= datetime.datetime.now()
                 empleado["faltas"].append(str(date.day)+"/"+str(date.month)+"/"+str(date.year))
                 faltasEmp= empleado["faltas"]
@@ -75,7 +75,7 @@ class registrarNotificacionDeAusencia(Action):
                             name= empleado["nombre"],
                             nroFaltas= faltasAnuales
                         )
-                manejoArchivo.escribirArchivo(direccion,empleado)
+                manejoArchivo.escribirArchivo(direccionE,empleado, idEmpleado)
             return[]
 
 
@@ -90,8 +90,8 @@ class ActionPedirTiempo(Action):
         idEmpleado= tracker.get_slot("identificadorEmpleado")
         mensaje= "empleado no identificado"
         if(idEmpleado is not None):
-            direccion= str(os.getcwd()) +"\\recursos\\empleados\\" + lista_empleados+ ".json"
-            empleado= manejoArchivo.leerArchivo(direccion)
+            direccionE= str(os.getcwd()) +"\\recursos\\empleados\\lista_empleados.json"
+            empleado= manejoArchivo.leerArchivo(direccionE, idEmpleado)
             tareas_momen = len(str(empleado["tareas_momento"]))
             if (tareas_momen > 2):
                 dispatcher.utter_message(
@@ -114,8 +114,8 @@ class ActionPedirTarea(Action):
         idEmpleado= tracker.get_slot("identificadorEmpleado")
         mensaje= "empleado no identificado"
         if(idEmpleado is not None):
-                direccionE= str(os.getcwd()) +"\\recursos\\empleados\\" + idEmpleado+ ".json"
-                empleado= manejoArchivo.leerArchivo(direccionE)
+                direccionE= str(os.getcwd()) +"\\recursos\\empleados\\lista_empleados.json"
+                empleado= manejoArchivo.leerArchivo(direccionE, idEmpleado)
                 date= datetime.datetime.now()
                 direcionT= os.getcwd() +"\\recursos\\tareas\\tareas" + ".csv"
                 tareaProp= manejoArchivo.tareaSinRes(direcionT)
@@ -152,8 +152,8 @@ class ActionConfirmarTarea(Action):
         
         idEmpleado= tracker.get_slot("identificadorEmpleado")
         idTareaProp= tracker.get_slot("idTarea")
-        direccionE= str(os.getcwd()) +"\\recursos\\empleados\\" + idEmpleado+ ".json"
-        empleado= manejoArchivo.leerArchivo(direccionE)
+        direccionE= str(os.getcwd()) +"\\recursos\\empleados\\lista_empleados.json"
+        empleado= manejoArchivo.leerArchivo(direccionE, idEmpleado)
         date= datetime.datetime.now()
         direcionT= os.getcwd() +"\\recursos\\tareas\\tareas" + ".csv"
         tareaProp= manejoArchivo.tareaBuscar(direcionT,idTareaProp)
@@ -162,13 +162,19 @@ class ActionConfirmarTarea(Action):
         tareaProp['fecha_inicio']=str(date.day)+"/"+str(date.month)+"/"+str(date.year)
         fechaestimada= date + datetime.timedelta(days=int(tareaProp['fecha_estimada']))
         tareaProp['fecha_estimada']=str(fechaestimada.day)+"/"+str(fechaestimada.month)+"/"+str(fechaestimada.year)
-        manejoArchivo.guardarTarea(direcionT,idTareaProp,tareaProp)
-        manejoArchivo.escribirArchivo(direccionE,empleado)
-        dispatcher.utter_message(
+        if(manejoArchivo.guardarTarea(direcionT,idTareaProp,tareaProp)):
+            manejoArchivo.escribirArchivo(direccionE,empleado,idEmpleado)
+            dispatcher.utter_message(
                         template= "utter_tareas_cofirmar_asignacion",
                         nombre= empleado["nombre"],
                         nombreTarea= tareaProp["nombre"],
                         fechaEstimada= tareaProp["fecha_estimada"]
                         )
+        else:
+            dispatcher.utter_message(
+                        template= "utter_tareas_error",
+                        nombre = empleado["nombre"],
+                        motivo = "no se pudeo guardar de forma correcta, por favor intente mas tarde o comuniquese coon el soporte tecnico"
+            )
         return[]
         
